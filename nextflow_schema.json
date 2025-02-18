@@ -1,0 +1,80 @@
+{
+  "name": "bionl/dragen-gatk pipeline",
+  "description": "DRAGEN-GATK",
+  "type": "object",
+  "definitions": {
+    "input_output_options": {
+      "title": "Input/output options",
+      "type": "object",
+      "fa_icon": "fas fa-terminal",
+      "description": "Define where the pipeline should find input data and save output data.",
+      "help_text": "Specify input file and output folder.",
+      "required": [
+        "input",
+        "outdir"
+      ],
+      "properties": {
+        "input": {
+          "description": "Path to input sample sheet (CSV format).",
+          "help_text": "Specify the sample sheet in CSV format containing input data.",
+          "fa_icon": "fas fa-file",
+          "type": "string",
+          "format": "file-path",
+          "schema": "assets/schema_input.json",
+          "mimetype": "text/csv",
+          "pattern": "^\\S+\\.csv$",
+          "exists": true
+        },
+        "outdir": {
+          "type": "string",
+          "format": "directory-path",
+          "description": "Path to output directory for storing results.",
+          "fa_icon": "fas fa-folder-open"
+        }
+      }
+    },
+    "alignment_options": {
+      "title": "Alignment options",
+      "type": "object",
+      "fa_icon": "fas fa-terminal",
+      "description": "Specify alignment-related settings.",
+      "help_text": "Provide the reference genome file.",
+      "required": [
+        "reference"
+      ],
+      "properties": {
+        "reference": {
+          "description": "Path to the reference genome file.",
+          "help_text": "Specify the reference genome file in FASTA format (optionally compressed with .gz).",
+          "fa_icon": "fas fa-file",
+          "type": "string",
+          "format": "file-path",
+          "pattern": "^\\S+\\.(fa|fasta|fa.gz|fasta.gz)$",
+          "exists": true
+        }
+      }
+    },
+    "recalibration_options": {
+      "title": "Recalibration options",
+      "type": "object",
+      "fa_icon": "fas fa-terminal",
+      "description": "Specify known variant sites for base quality recalibration.",
+      "help_text": "Provide a VCF file containing known variant sites.",
+      "required": [
+        "known_sites"
+      ],
+      "properties": {
+        "known_sites": {
+          "description": "Path to known sites VCF file.",
+          "help_text": "Provide a VCF file with known variant sites for recalibration.",
+          "fa_icon": "fas fa-file",
+          "type": "string",
+          "format": "file-path",
+          "mimetype": "text/vcf",
+          "pattern": "^\\S+\\.vcf$",
+          "exists": true
+        }
+      }
+    }
+  }
+}

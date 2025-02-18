@@ -1,0 +1,2 @@
+sample,fastq_1,fastq_2
+TESTING,gs://91177f14-d646-447d-9e14-3ec3391dcd41/reads_R1.fastq.gz,gs://91177f14-d646-447d-9e14-3ec3391dcd41/reads_R2.fastq.gz
