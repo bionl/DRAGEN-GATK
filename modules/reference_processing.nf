@@ -1,4 +1,5 @@
 process REFERENCE_DICT {
+    label "low_mem"
     container 'broadinstitute/gatk:latest'
 
     input:
@@ -15,6 +16,7 @@ process REFERENCE_DICT {
 }
 
 process REFERENCE_INDEXING {
+    label "low_mem"
     container 'staphb/samtools:latest'
 
     input:
