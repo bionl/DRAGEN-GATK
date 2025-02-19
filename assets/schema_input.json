@@ -13,12 +13,19 @@
                     "id"
                 ]
             },
-            "fasta": {
+            "fastq_1": {
                 "type": "string",
                 "format": "file-path",
                 "exists": true,
-                "pattern": "^\\S+\\.f(ast)?(a|q)$",
-                "errorMessage": "The file must be provided in FASTA or FASTQ format, cannot contain spaces, and must have the extension '.fasta', '.fa', '.fastq', or '.fq' (compression is not allowed)."
+                "pattern": "^\\S+\\.f(ast)?(a|q)(\\.gz)?$",
+                "errorMessage": "The file must be provided in FASTA or FASTQ format, cannot contain spaces, and must have the extension '.fasta', '.fa', '.fastq', or '.fq' (compression with '.gz' is allowed)."
+            },
+            "fastq_2": {
+                "type": "string",
+                "format": "file-path",
+                "exists": true,
+                "pattern": "^\\S+\\.f(ast)?(a|q)(\\.gz)?$",
+                "errorMessage": "The file must be provided in FASTA or FASTQ format, cannot contain spaces, and must have the extension '.fasta', '.fa', '.fastq', or '.fq' (compression with '.gz' is allowed)."
             }
         },
         "required": [
