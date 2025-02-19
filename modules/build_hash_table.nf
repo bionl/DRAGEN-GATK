@@ -13,6 +13,7 @@ process BUILD_HASH_TABLE {
     dragen-os  \
         --build-hash-table true \
         --ht-reference ${reference} \
-        --output-directory ./
+        --output-directory ./ \
+        --num-threads ${task.cpus}
     """
 }
