@@ -60,18 +60,11 @@ workflow {
         */
         indexed_bam = BAM_INDEXING(recalibrated_bam)
 
-        recalibrated_bam.view { print(it) }
-        indexed_bam.view { print(it) }
-
         final_bam = recalibrated_bam.join(indexed_bam)
-
-        final_bam.view { print(it) }
     }
     else {
         final_bam = sorted_bam
     }
-
-    final_bam.view { print(it) }
 
     /**
      * Variant calling
@@ -92,7 +85,7 @@ def validateParameters() {
     log.info(
         """
     =============================
-    DRAGEN-GATK Workflow v1.0
+    DRAGEN-GATK Workflow v1.0.1
     =============================
     input        : ${params.input}
     reference    : ${params.reference}
