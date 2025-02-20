@@ -17,7 +17,7 @@ workflow {
      * - `params.known_sites`: (Optional) Path to known variant sites for base quality recalibration
      */
     samples = Channel.fromPath(params.input).splitCsv(header: true)
-    reference = Channel.fromPath(params.reference)
+    reference = Channel.fromPath(params.reference).map { file -> tuple(file.name, file) }
     known_sites = params.known_sites ? file(params.known_sites) : null
 
     /**
@@ -30,8 +30,14 @@ workflow {
     ref_dict = REFERENCE_DICT(reference)
     ref_index = REFERENCE_INDEXING(reference)
 
-    // Combine all outputs into a tuple
-    ref_meta = reference.combine(hash_table.toList()).combine(ref_dict).combine(ref_index)
+    // Combine all outputs into a tuple, joining based on the reference file name
+    ref_meta = reference
+        .join(hash_table)
+        .join(ref_dict)
+        .join(ref_index)
+        .map { _name, ref, hash, dict, index ->
+            tuple(ref, hash, dict, index)
+        }
 
     /**
      * Read alignment step
@@ -55,9 +61,9 @@ workflow {
         recalibrated_bam = BASE_QUALITY_RECALIBRATION(sorted_bam, ref_meta, known_sites)
 
         /**
-        * BAM indexing step
-        * - `BAM_INDEXING`: Generates an index file for the final BAM file
-        */
+         * BAM indexing step
+         * - `BAM_INDEXING`: Generates an index file for the final BAM file
+         */
         indexed_bam = BAM_INDEXING(recalibrated_bam)
 
         final_bam = recalibrated_bam.join(indexed_bam)
@@ -85,7 +91,7 @@ def validateParameters() {
     log.info(
         """
     =============================
-    DRAGEN-GATK Workflow v1.0.1
+    DRAGEN-GATK Workflow v1.0.2
     =============================
     input        : ${params.input}
     reference    : ${params.reference}

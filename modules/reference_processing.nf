@@ -3,10 +3,10 @@ process REFERENCE_DICT {
     container 'broadinstitute/gatk:latest'
 
     input:
-    path reference
+    tuple val(filename), path(reference)
 
     output:
-    path "*.dict"
+    tuple val(filename), path("*.dict")
 
     script:
     """
@@ -20,10 +20,10 @@ process REFERENCE_INDEXING {
     container 'staphb/samtools:latest'
 
     input:
-    path reference
+    tuple val(filename), path(reference)
 
     output:
-    path "*.fai"
+    tuple val(filename), path("*.fai")
 
     script:
     """

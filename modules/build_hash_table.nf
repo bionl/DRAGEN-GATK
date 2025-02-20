@@ -3,10 +3,10 @@ process BUILD_HASH_TABLE {
     container 'gambalab/dragmap:latest'
 
     input:
-    path reference
+    tuple val(filename), path(reference)
 
     output:
-    path "*"
+    tuple val(filename), path("*")
 
     script:
     """
