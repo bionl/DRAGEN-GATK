@@ -1,6 +1,6 @@
 process CONVERT_SAM_TO_BAM_AND_SORT {
     tag "${sample}"
-    label "med_mem"
+    label "mid_mem"
     container 'staphb/samtools:latest'
 
     input:
